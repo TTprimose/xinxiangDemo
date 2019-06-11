@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="box1" class="box"></div>
+	<div id="box2" class="box"></div>
+	<img src="http://pica.zol-img.com.cn/2016/02/1ace90ad77db716547614a18c4a9263g.jpg" alt="" id="img1" />
+</body>
+
+</html>
+<style>
+	.box {
+		width: 400px;
+		height: 400px;
+		float: left;
+	}
+
+	#box1 {
+		background: #CCC;
+	}
+
+	#box2 {
+		background: #FF0;
+	}
+</style>
+<script>
+	var oBox1,
+		oBox2,
+		oImg1;
+
+	window.onload = function () {
+		oBox1 = document.getElementById('box1');
+		oBox2 = document.getElementById('box2');
+		oImg1 = document.getElementById('img1');
+
+		//
+		oBox1.ondragover = oBox2.ondragover = function (e) {
+			e.preventDefault();
+		};
+
+		//
+		oImg1.ondragstart = function (e) {
+			e.dataTransfer.setData('text', e.target.id);
+		};
+
+		oBox1.ondrop = dropImg;
+		oBox2.ondrop = dropImg;
+	};
+
+	function dropImg(e) {
+		e.preventDefault();
+		var tempImg = document.getElementById(e.dataTransfer.getData('text'));
+		e.target.appendChild(tempImg);
+	}
+</script>
